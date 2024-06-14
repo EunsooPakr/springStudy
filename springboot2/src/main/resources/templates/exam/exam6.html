@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">thymeleaf 링크표현</title>
+</head>
+<body>
+    <h1>thymeleaf 링크표현</h1>
+    - 구문 @{주소} <br>
+    - ex: th:href="@{/exam/exam6}" <br>
+    - th:href, th:src 등등 <br>
+    - 주의할 점 th:href="@{exam/exam6}" 루트 / 유의해야한다. 누락시 상대경로 <br>
+
+    <ul th:object="${memberInfo}">
+        <li>
+            <a th:href="@{https://www.thymeleaf.org}">타임리프 공식사이트</a>
+        </li>
+        <li>
+            <!-- 잘못된 표기방법 th가 없을때-->
+            <a href="@{https://www.thymeleaf.org}">타임리프 공식사이트</a>
+        </li>
+        <!-- 쿼리스트링 표현방법 -->
+        <li>
+            <a th:href="@{/exam/api(memberId=*{memberId}, memberPw=*{memberPw})}">회원 정보조회</a>
+        </li>
+        <!-- rest api 주소 자원, 행동 -->
+        <!-- 자원: 주소 -->
+        <!-- 행동: http 주소요청 메소드 -->
+        <!-- GET: select 특정 자원 조회 -->
+        <!-- POST: insert 특정 자원 삽입 -->
+        <!-- PUT: update 특정 자원 수정 -->
+        <!-- DELETE: delete 특정 자원 삭제 -->
+        <li>
+            <a th:href="@{|\member\*{memberId}|}">id002회원정보조회</a>
+        </li>
+        <li>
+            <a th:href="@{\member\{id}(id=*{memberId})}">id002회원정보조회</a>
+        </li>
+    </ul>
+
+</body>
+</html>
