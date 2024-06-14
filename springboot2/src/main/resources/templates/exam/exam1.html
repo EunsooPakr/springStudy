@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
     <link rel="icon" href="data:,">
-    <title th:text="${title}"></title>
 </head>
-<body>
+<th:block layout:fragment="customContent">
 <h1 th:text="${title}"></h1>
 <h2>thymeleaf 객체 바인딩</h2>
 - 문법: ${키} controller 특정 메소드에 model 객체 셋팅했던 키를 작성하면 value가 바인딩 <br>
@@ -41,15 +41,18 @@
 
 <h2>스크립트 영역에서 data 바인딩</h2>
 - 문법: script 속성에 th:inline="javascript" 추가
-<script th:inline="javascript">
-    const memberInfo = [[${memberInfo}]];
-    /* console.log(memberInfo); */
-    for(const key in memberInfo){
-        console.log(`${key} : ${memberInfo[key]}`)
-    }
 
-
-</script>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-</body>
+</th:block>
+<th:block layout:fragment="customJs">
+    <script th:inline="javascript">
+        const memberInfo = [[${memberInfo}]];
+        /* console.log(memberInfo); */
+        for(const key in memberInfo){
+            console.log(`${key} : ${memberInfo[key]}`)
+        }
+
+
+    </script>
+</th:block>
 </html>

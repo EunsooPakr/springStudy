@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
     <meta charset="UTF-8">
     <title th:text="${title}">thymeleaf 조건문</title>
@@ -24,7 +26,7 @@
     </style>
 </head>
 
-<body>
+<th:block layout:fragment="customContent">
     <h1>thymeleaf 조건문</h1>
     - 태그 속성 th:if, th:unless, th:switch
     - th:if -> true일때 화면을 보이는 조건문 <br>
@@ -125,5 +127,5 @@
             </tr>
         </tbody>
     </table>
-</body>
+    </th:block>
 </html>

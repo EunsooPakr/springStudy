@@ -1,11 +1,11 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
-    <title>실습</title>
-    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" th:href="@{/css/table.css}">
 </head>
-<body>
+<th:block layout:fragment="customContent">
     <h1>실습문제</h1>
     - #1: table.css 외부스타일 적용해보기.
     - #2: http://localhost:8080/exam/exam4 -> exam4.html 동적페이지 노출 <br>
@@ -43,5 +43,5 @@
             </tr>
         </tfoot>
     </table>
-</body>
+</th:block>
 </html>

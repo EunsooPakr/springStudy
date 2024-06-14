@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
     <title th:text="${title}">thymeleaf 링크표현</title>
 </head>
-<body>
+<th:block layout:fragment="customContent">
     <h1>thymeleaf 링크표현</h1>
     - 구문 @{주소} <br>
     - ex: th:href="@{/exam/exam6}" <br>
@@ -38,5 +39,5 @@
         </li>
     </ul>
 
-</body>
+</th:block>
 </html>
