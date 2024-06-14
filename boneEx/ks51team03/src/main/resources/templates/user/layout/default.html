@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/resource/user/assets/imgs/theme/favicon.svg}" />
+    <!-- Template CSS -->
+    <link rel="stylesheet" th:href="@{/resource/user/assets/css/main.css?v=5.6}" />
+</head>
+<body>
+<!-- header start -->
+<header th:replace="~{user/fragments/header :: headerFragment}"></header>
+<div th:replace="~{user/fragments/header :: mobileHeaderFragment}"></div>
+<!-- header end -->
+
+<!-- content start -->
+<main class="main pages">
+    <!--/* <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <span></span> Pages <span></span> My Account
+            </div>
+        </div>
+    </div> */-->
+
+    <th:block layout:fragment="customContent">
+    </th:block>
+</main>
+<!-- content end -->
+
+<!-- footer start -->
+<footer th:replace="~{user/fragments/footer :: footerFragment}"></footer>
+<!-- footer end -->
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="text-center">
+                <img th:src="@{/resource/user/assets/imgs/theme/loading.gif}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader end -->
+<!-- Vendor JS-->
+<script th:src="@{/resource/user/assets/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/resource/user/assets/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/resource/user/assets/js/vendor/jquery-migrate-3.3.0.min.js}"></script>
+<script th:src="@{/resource/user/assets/js/vendor/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/slick.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/jquery.syotimer.min.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/wow.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/perfect-scrollbar.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/magnific-popup.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/select2.min.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/waypoints.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/counterup.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/jquery.countdown.min.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/images-loaded.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/isotope.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/scrollup.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/jquery.vticker-min.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/jquery.theia.sticky.js}"></script>
+<script th:src="@{/resource/user/assets/js/plugins/jquery.elevatezoom.js}"></script>
+<!-- Template  JS -->
+<script th:src="@{/resource/user/assets/js/main.js?v=5.6}"></script>
+<script th:src="@{/resource/user/assets/js/shop.js?v=5.6}"></script>
+<!-- 사용자정의 javascript file -->
+<th:block layout:fragment="customJsFile">
+</th:block>
+<!-- 사용자정의 javascript -->
+<th:block layout:fragment="customJs">
+</th:block>
+</body>
+</html>

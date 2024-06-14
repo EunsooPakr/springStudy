@@ -1,0 +1,12 @@
+package ks51team03.user.common.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller("userCommonController")
+public class CommonController {
+	
+	@GetMapping("/")
+	public String userMainPage() {
+		return "";
+	}
+}
