@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	<!-- ~{layout/default} == src/main/resources/templateslayout/default.html -->  
+	<head>
+		<link rel="sytlesheet" type="text/css" th:href="@{/css/table.css}" />
+	</head>
+	
+	<th:block layout:fragment="customContent">
+		<h1 th:text="${content}">HELLO! SPRING BOOT!</h1>
+	</th:block>
+	
+	<th:block layout:fragment="customJsFile">
+	</th:block>
+	
+	<th:block layout:fragment="customJs">
+	</th:block>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ksmart.mybatis.common.member.mapper.MemberMapper">
+
+	<!--application.properties에서 패키지 미리 지정  mybatis.type-aliases-package=ksmart.mybatis.common.*.dto -->
+	<!-- ksmart.mybatis.common.*.dto.Member -> member -->
+	<!-- ksmart.mybatis.common.*.dto.User -> user -->
+	
+	<select id="getMemberList" resultType="ksmart.mybatis.common.member.dto.Member">
+		<!-- 회원조회 -->
+			SELECT
+				m_id 		AS memberId,
+				m_pw 		AS memberPw,
+				m_name 		AS memberName,
+				m_level 	AS memberEmail,
+				m_addr 		AS memberAddr,
+				m_reg_date 	AS memberRegDate
+			FROM
+				tb_member
+	</select>
+
+</mapper>
+
