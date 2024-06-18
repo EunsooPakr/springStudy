@@ -1,13 +1,12 @@
-package ksmart.mybatis.common.member.dto;
+package ksmart.mybatis.member.dto;
 
+import java.util.List;
+
+import ksmart.mybatis.goods.dto.Goods;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-@Data //@Setter + @Getter + @ToString
+@Data // @Data = @Setter + @Getter + @ToString
 public class Member {
-
 	private String memberId;
 	private String memberPw;
 	private String memberName;
@@ -17,4 +16,6 @@ public class Member {
 	private String memberAddr;
 	private String memberRegDate;
 	
+	// 판매자 상품 리스트
+	private List<Goods> goodsList;
 }
