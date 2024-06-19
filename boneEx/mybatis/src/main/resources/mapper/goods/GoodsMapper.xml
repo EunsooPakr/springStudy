@@ -23,6 +23,65 @@
 			<result column="m_reg_date" property="memberRegDate"/>
 		</association>
 	</resultMap>
+
+	<select id="getSearchList" parameterType="List" resultMap="goodsResultMap">
+		/* 다중조건 상품 조회 */
+		SELECT
+			g.g_code,
+			g.g_name,
+			g.g_price,
+			g.g_seller_id,
+			g.g_reg_date,
+			m.m_id,
+			m.m_name,
+			m.m_email
+		FROM
+			tb_goods AS g
+			INNER JOIN
+			tb_member AS m
+			ON
+			g.g_seller_id = m.m_id
+		<where>
+			<foreach collection="list" item="data">
+				<choose>
+					<when test="data.searchKey != null and data.searchKey == 'g.g_price'">
+						OR (
+							${data.searchKey} >= #{data.searchValue.minPrice}
+							AND
+							${data.searchKey} <![CDATA[<=]]> #{data.searchValue.maxPrice}
+						)
+					</when>
+					<otherwise>
+						OR ${data.searchKey} LIKE CONCAT('%', #{data.searchValue}, '%')
+					</otherwise>
+				</choose>
+			</foreach>
+		</where>
+	</select>
+	
+	
+	<!-- 상품등록 -->
+	<insert id="addGoods" parameterType="Goods">
+		<selectKey keyProperty="goodsCode" resultType="String" order="BEFORE">
+			/* 상품 자동 증가 코드 */
+			SELECT 
+				CASE
+				WHEN COUNT(g_code) = 0 THEN 'g001' 
+				ELSE 
+					CONCAT(
+						'g',
+						LPAD(MAX(CAST(SUBSTRING_INDEX(g_code, 'g', -1) AS UNSIGNED))+1, 3, '0') 	
+					)
+				END AS goodsCode
+			FROM 
+				tb_goods;
+		</selectKey>
+		/* 상품등록 */
+		INSERT INTO tb_goods
+		(g_code, g_name, g_price, g_seller_id, g_reg_date)
+		VALUES 
+		(#{goodsCode}, #{goodsName}, #{goodsPrice}, #{goodsSellerId}, CURDATE())
+	</insert>
 	
 	<select id="getGoodsList" resultMap="goodsResultMap">
 		/* 상품정보 */

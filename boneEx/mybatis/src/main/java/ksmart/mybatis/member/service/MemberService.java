@@ -5,8 +5,12 @@ import java.util.Map;
 
 import ksmart.mybatis.member.dto.Member;
 import ksmart.mybatis.member.dto.MemberLevel;
+import ksmart.mybatis.member.dto.Search;
 
 public interface MemberService {
+	// 회원 검색 리스트 조회
+	List<Member> getSearchList(Search search);
+	
 	// 회원 탈퇴
 	void removeMember(int memberLevel, String memberId);
 	
