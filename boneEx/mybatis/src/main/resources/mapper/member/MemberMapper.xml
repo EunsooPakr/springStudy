@@ -59,7 +59,7 @@
 	</select>
 
 	<!-- 로그인 이력조회 -->
-	<select id="getLoginHistory" parameterType="int" resultMap="map">
+	<select id="getLoginHistory" parameterType="int" resultType="map">
 		/* 로그인 이력 조회 */
 		SELECT
 			l.login_id as loginId,
@@ -74,7 +74,6 @@
 			tb_member AS m
 			ON
 			l.login_id = m.m_id
-			on
 			INNER join
 			tb_member_level AS ml
 			ON

@@ -42,6 +42,10 @@ public class MemberServiceImpl implements MemberService{
 		int rowPerPage = 10;
 		// 첫번째 인수값
 		int startRow = (currentPage - 1) * rowPerPage;
+		// 시작페이지 설정 초기화
+		int startPageNum = 1;
+		// 마지막페이지 설정 초기화
+		int endPageNum = 10;
 
 		List<Map<String,Object>> loginHistory = memberMapper.getLoginHistory(startRow, rowPerPage);
 
@@ -51,9 +55,26 @@ public class MemberServiceImpl implements MemberService{
 		// 마지막 페이지
 		int lastPage = (int)Math.ceil(cnt/rowPerPage);
 
+		// 마지막페이지 보다 작을 경우 마지막페이지로 설정
+		endPageNum = lastPage < 10 ? lastPage : endPageNum;
+
+		// 동적 페이지설정
+		if(currentPage > 6 && endPageNum > 9){
+			startPageNum =  currentPage - 5;
+			endPageNum = currentPage + 4;
+			// 마지막페이지번호가 마지막페이지수보다 클 경우에 페이지번호를 고정
+			if(endPageNum >= lastPage){
+				startPageNum = lastPage - 9;
+				endPageNum = lastPage;
+			}
+		}
+
+
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("loginHistory", loginHistory);
 		resultMap.put("lastPage", lastPage);
+		resultMap.put("startPageNum", startPageNum);
+		resultMap.put("endPageNum", endPageNum);
 
 		return resultMap;
 	}

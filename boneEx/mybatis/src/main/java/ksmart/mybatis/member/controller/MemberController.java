@@ -38,11 +38,15 @@ public class MemberController {
 
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> loginHistory = (List<Map<String, Object>>) resultMap.get("loginHistory");
-		int lastPage = (Integer) resultMap.get("lastPage");
+		int lastPage = (int) resultMap.get("lastPage");
+		int startPageNum = (int) resultMap.get("startPageNum");
+		int endPageNum = (int) resultMap.get("endPageNum");
 
 		model.addAttribute("loginHistory", loginHistory);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
 
 		return "admin/member/loginHistory";
 	}
