@@ -30,7 +30,34 @@ public class MemberServiceImpl implements MemberService{
 	private final MemberMapper memberMapper;
 	private final GoodsMapper goodsMapper;
 	private final OrderMapper orderMapper;
-	
+
+
+	/**
+	 * 로그인 이력 조회
+	 */
+	@Override
+	public Map<String, Object> getLoginHistory(int currentPage) {
+
+		// 보여줄 행의 갯수
+		int rowPerPage = 10;
+		// 첫번째 인수값
+		int startRow = (currentPage - 1) * rowPerPage;
+
+		List<Map<String,Object>> loginHistory = memberMapper.getLoginHistory(startRow, rowPerPage);
+
+		// 전체 행의 갯수 조회
+		double cnt = memberMapper.getLoginHistoryCnt();
+
+		// 마지막 페이지
+		int lastPage = (int)Math.ceil(cnt/rowPerPage);
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("loginHistory", loginHistory);
+		resultMap.put("lastPage", lastPage);
+
+		return resultMap;
+	}
+
 	/**
 	 * 회원 검색 조회
 	 * @param search

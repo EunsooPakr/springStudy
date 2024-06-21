@@ -8,6 +8,10 @@ import ksmart.mybatis.member.dto.MemberLevel;
 import ksmart.mybatis.member.dto.Search;
 
 public interface MemberService {
+
+	// 로그인 이력 조회
+	Map<String, Object> getLoginHistory(int currentPage);
+
 	// 회원 검색 리스트 조회
 	List<Member> getSearchList(Search search);
 	

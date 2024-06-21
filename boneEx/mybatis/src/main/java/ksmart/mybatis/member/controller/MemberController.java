@@ -30,7 +30,23 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	private final MemberMapper memberMapper;
-	
+
+	@GetMapping("/loginHistory")
+	public String loginHistory(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage
+								,Model model) {
+		Map<String, Object> resultMap = memberService.getLoginHistory(currentPage);
+
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> loginHistory = (List<Map<String, Object>>) resultMap.get("loginHistory");
+		int lastPage = (Integer) resultMap.get("lastPage");
+
+		model.addAttribute("loginHistory", loginHistory);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", lastPage);
+
+		return "admin/member/loginHistory";
+	}
+
 	@PostMapping("/searchList")
 	@ResponseBody
 	public List<Member> getSearchList(@RequestBody Search search){

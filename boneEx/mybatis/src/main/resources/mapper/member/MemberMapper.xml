@@ -48,6 +48,39 @@
 			ON 
 			m.m_level = l.level_num
 	</sql>
+
+	<!-- 로그인 테이블 행의 갯수 조회 -->
+	<select id="getLoginHistoryCnt" resultType="int">
+		/* 로그인 테이블 행의 갯수 조회 */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_login;
+	</select>
+
+	<!-- 로그인 이력조회 -->
+	<select id="getLoginHistory" parameterType="int" resultMap="map">
+		/* 로그인 이력 조회 */
+		SELECT
+			l.login_id as loginId,
+			m.m_name as memberName,
+			m.m_email as memberEmail,
+			ml.level_name as levelName,
+			l.login_date as loginDate,
+			l.logout_date as logoutDate
+		FROM
+			tb_login AS l
+			INNER JOIN
+			tb_member AS m
+			ON
+			l.login_id = m.m_id
+			on
+			INNER join
+			tb_member_level AS ml
+			ON
+			m.m_level = ml.level_num
+		LIMIT #{startRow}, #{rowPerPage};
+	</select>
 	
 	<!-- 회원 검색 조회 -->
 	<select id="getSearchList" parameterType="Search" resultMap="memberResultMap">
