@@ -9,5 +9,7 @@
 		<a th:href="@{/member/loginHistory}">로그인이력</a>
 		<a th:href="@{/goods/addGoods}">상품등록</a>
 		<a th:href="@{/goods/goodsList}">상품목록</a>
+		<a th:if="${session.SID == null}" th:href="@{/member/login}">로그인</a>
+		<a th:unless="${session.SID == null}" th:href="@{/member/logout}">로그아웃</a>
 	</div>
 </html>

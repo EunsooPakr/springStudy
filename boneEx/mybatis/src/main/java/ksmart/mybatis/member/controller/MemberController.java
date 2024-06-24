@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +34,62 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	private final MemberMapper memberMapper;
+
+	@PostMapping("/login")
+	public String login(@RequestParam(value = "memberId") String memberId
+						, @RequestParam(value = "memberPw") String memberPw
+						, RedirectAttributes reAttr
+						, HttpServletRequest request
+						, HttpServletResponse response
+						, HttpSession session){
+		String viewName = "redirect:/";
+
+		Map<String, Object> checkMap = memberService.checkMemberInfo(memberId, memberPw);
+		boolean isCheck = (boolean) checkMap.get("isCheck");
+		if(isCheck) {
+			Member memberInfo = (Member) checkMap.get("memberInfo");
+
+			// 1. session
+			//HttpSession requestGetSession = request.getSession();  이렇게 가져올 수도 있다.
+			session.setAttribute("SID", memberInfo.getMemberId());
+			session.setAttribute("SNAME", memberInfo.getMemberName());
+			session.setAttribute("SLEVEL", memberInfo.getMemberLevel());
+
+			// 2. cookie
+			Cookie cookie = new Cookie("loginId", memberInfo.getMemberId());
+			cookie.setPath("/");
+			cookie.setHttpOnly(true);
+			cookie.setMaxAge(60*60*1);  // 1시간 유지
+
+			// 생성된 쿠키를 응답객체에 담아 반환
+			response.addCookie(cookie);
+		}else {
+			viewName = "redirect:/member/login";
+			reAttr.addAttribute("msg", "회원의 정보가 일치하지 않습니다.");
+		}
+        return viewName;
+    }
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session, HttpServletResponse response){
+		session.invalidate();
+
+		// 2. cookie
+		Cookie cookie = new Cookie("loginId", null);
+		cookie.setPath("/");
+		cookie.setHttpOnly(true);
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		return "redirect:/member/login";
+	}
+
+	@GetMapping("/login")
+	public String login(Model model, @RequestParam(value = "msg", required = false) String msg) {
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
+		return "admin/member/login";
+	}
 
 	@GetMapping("/loginHistory")
 	public String loginHistory(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage
